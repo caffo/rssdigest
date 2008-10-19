@@ -23,10 +23,10 @@ setup
 manual setup
 -------------
 
-	* Create the database using 'twdig.rb database -e create'
-	* Test the retrieval using 'twdig.rb retrieve'
-	* Preview the digest using 'twdig.rb digest preview'
-	* Test the email sending using 'twdig.rb digest send'
+	* Create the database using 'bin/rssdigest.rb database -e create'
+	* Test the retrieval using 'bin/rssdigest.rb retrieve'
+	* Preview the digest using 'bin/rssdigest.rb digest preview'
+	* Test the email sending using 'bin/rssdigest.rb digest send'
 	* Check your email
 	* Add the following cronjobs in your server:
 
