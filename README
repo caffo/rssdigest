@@ -31,7 +31,7 @@ manual setup
 	* Add the following cronjobs in your server:
 
 		 10 * * * *  bin/rssdigest.rb retrieve
-		 59 23 * * * bin/rssdigest.rb digest -e mail
+		 59 23 * * * bin/rssdigest.rb digest -e send
 
 	 - Done :-)
 
