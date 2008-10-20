@@ -98,13 +98,12 @@ class Controller < SimpleConsole::Controller
   def retrieve
     feed  = SimpleRSS.parse open(FEED_URL)
     feed.items.each do |item|
-#      p item.inspect
-      next if Entry.find_by_remote_id(item.object_id)
+      next unless Entry.find_by_title_and_pubdate(item.title, item.pubDate).empty?
       e = Entry.new
       e.title       = item.title
       e.body        = item.content
       e.body        = item.description if item.content.nil?
-      e.remote_id   = item.object_id
+      e.pubdate     = item.pubDate
       e.author      = item.author
       e.save
     end
@@ -166,8 +165,8 @@ class CreateEntries< ActiveRecord::Migration
       t.column  :title,       :text
       t.column  :author,      :string
       t.column  :body,        :text
-      t.column  :remote_id,   :integer
       t.column  :created_at,  :datetime
+      t.column  :pubdate,     :datetime
     end
   end
 
@@ -193,6 +192,10 @@ ActionMailer::Base.smtp_settings = {
 
 # Tweet AR Class
 class Entry < ActiveRecord::Base
+  def self.find_by_title_and_pubdate(title, pubdate)
+    find(:all, :conditions => ["title = ? and pubdate = ?", title, pubdate.to_time])
+  end
+  
 end
 
 # DigestMailer AM Class
